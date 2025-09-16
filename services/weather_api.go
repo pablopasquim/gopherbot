@@ -10,7 +10,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-const apiURL = "https://wttr.in/%s?0"
+const apiURL = "https://wttr.in/%s?format=3"
 
 func WeatherMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 
@@ -26,15 +26,15 @@ func WeatherMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 	resp, err := http.Get(url)
 	if err != nil {
 		s.ChannelMessageSend(m.ChannelID, "Erro ao buscar os dados")
-		log.Fatal(err)
+		log.Println("Erro no http.Get:", err)
 		return
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		s.ChannelMessageSend(m.ChannelID, "Erro ao ler a respota")
-		log.Fatal(err)
+		s.ChannelMessageSend(m.ChannelID, "Erro ao ler a respotas")
+		log.Println("Erro no ReadAll:", err)
 		return
 	}
 

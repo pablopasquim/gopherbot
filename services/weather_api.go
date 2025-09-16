@@ -38,6 +38,6 @@ func WeatherMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	message := string(body)
+	message := fmt.Sprintf("Tempo em %s:\n```\n%s\n```", city, string(body))
 	s.ChannelMessageSend(m.ChannelID, message)
 }

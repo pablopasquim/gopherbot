@@ -9,14 +9,23 @@ import (
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/joho/godotenv"
 	"github.com/pablopasquim/gopherbot/services"
 )
 
-var Token = "MTQxNjUyNzMzODkyMTAwNTI0MA.GF6U9X.WPnvOgJuuJhFU4LdeDLeND0GhEiSIuEHJomzsg"
-
 func Start() {
-	// Cria uma nova sessão do Discord.
-	sess, err := discordgo.New("Bot " + Token)
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Erro ao carregar arquivo .env")
+	}
+
+	token := os.Getenv("DISCORD_BOT_TOKEN")
+	if token == "" {
+		log.Fatal(err)
+	}
+
+	sess, err := discordgo.New("Bot " + token)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,7 +44,7 @@ func Start() {
 		}
 
 		if strings.HasPrefix(m.Content, "!tempo") {
-			services.WeatherMessage(sess, m)
+			services.WeatherMessage(s, m)
 			return
 		}
 	})

@@ -10,7 +10,7 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
-	"github.com/pablopasquim/gopherbot/services"
+	"github.com/pablopasquim/gopherbot/internal/services"
 )
 
 func Start() {

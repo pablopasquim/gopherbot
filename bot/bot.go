@@ -5,9 +5,11 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/pablopasquim/gopherbot/services"
 )
 
 var Token = "MTQxNjUyNzMzODkyMTAwNTI0MA.GF6U9X.WPnvOgJuuJhFU4LdeDLeND0GhEiSIuEHJomzsg"
@@ -30,6 +32,11 @@ func Start() {
 				log.Fatal(err)
 			}
 			log.Println(send)
+		}
+
+		if strings.HasPrefix(m.Content, "!tempo") {
+			services.WeatherMessage(sess, m)
+			return
 		}
 	})
 
